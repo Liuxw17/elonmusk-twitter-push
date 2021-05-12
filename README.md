@@ -3,12 +3,12 @@
 
 ## 微信链接关注 
 
-wxpusher.zjiecode.com/wxuser/?type=2&id=2052#/follow
+https://wxpusher.zjiecode.com/wxuser/?type=2&id=2052#/follow
 
 
 ## 二维码链接
 
-wxpusher.zjiecode.com/api/qrcode/ktkLJFZA2vJp5kcsK8vvV8tk0C6bsyEjXnl0EkngZpohDArglGYP8A7Lh6QZOyqK.jpg
+https://wxpusher.zjiecode.com/api/qrcode/ktkLJFZA2vJp5kcsK8vvV8tk0C6bsyEjXnl0EkngZpohDArglGYP8A7Lh6QZOyqK.jpg
 
 
 ## 截图
