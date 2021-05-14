@@ -8,7 +8,7 @@ const schedule = require('node-schedule');
 
 let adapter = new FileSync('db.json');
 let db = low(adapter);
-db.defaults({orderRecord: []}).write();
+db.defaults({orderRecord: '1'}).write();
 
 
 var search = [ // search keyword
@@ -22,9 +22,9 @@ var search = [ // search keyword
 
 
 (async () => {
-    const rule = '*/1 * * * *';
+    const rule = '0/30 * * * * *';
     schedule.scheduleJob(rule, async () => {
-
+        console.log("+++++++++++++++++++++++++++++++++++++++++++")
         // const browser = await puppeteer.launch({headless: true});
         //linux设置
         const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium', args:["--no-sandbox"] });
@@ -36,14 +36,14 @@ var search = [ // search keyword
 
         let content = await tweetElement.$$eval('div+div>div>div>span', element => element.map(data => data.innerText));
         content=content.toString()
-        let tempOrderRecord = db.get('orderRecord[0].content').value();
+        var tempOrderRecord =db.read().get('orderRecord').value();
+        console.log('临时：'+tempOrderRecord)
+        console.log('最新：'+content)    
         //最新内容不等于缓存的内容，发送消息到微信，更新json数据库
-        if (content != tempOrderRecord && tempOrderRecord !='undefined' ) {
-
-
-            for (let keyword of search) {
-                if(content.toLowerCase().indexOf(keyword.toLowerCase())!=-1){
-                    //发送
+        if (content != tempOrderRecord) {
+                    //发送  
+                    
+                    console.log('发送-----------')
                     const data = JSON.stringify({
                         //在https://wxpusher.zjiecode.com/申请
                         "appToken":"AT_************",
@@ -76,17 +76,16 @@ var search = [ // search keyword
                     })
                     req.write(data)
                     req.end()
-                    break
-                }
-            }
+                    
+                
+            
 
             //更新缓存
-            db.get('orderRecord').push({
-                content: content,
-            }).write();
+            db.read().set('orderRecord',content).write();
         }else {
             console.log("无需发送")
         }
+        console.log("关闭浏览器")
         await browser.close();
     })
 
