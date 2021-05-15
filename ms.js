@@ -11,23 +11,34 @@ let db = low(adapter);
 db.defaults({orderRecord: '1'}).write();
 
 
-var search = [ // search keyword
-    "doge",
-    "dogecoin",
-    "dog"
-];
 
 
 
 
 
 (async () => {
-    const rule = '0/30 * * * * *';
+    const rule = '0/60 * * * * *';
+     console.log("------------初始化浏览器-----------------------")
+    const browser = await puppeteer.launch({ 
+            executablePath: '/usr/bin/chromium', 
+            headless:true,
+            args:["--no-sandbox",
+                '–disable-dev-shm-usage',
+                '–disable-setuid-sandbox',
+                '–no-first-run',
+                '–no-zygote',
+                '–single-process',
+                '–disable-gpu',
+                '–disable-dev-shm-usage'
+        
+        ] });    
+    
+    
     schedule.scheduleJob(rule, async () => {
-        console.log("+++++++++++++++++++++++++++++++++++++++++++")
+        console.log("+++++++++++++打开页面++++++++++++++++++++++++++++++")
         // const browser = await puppeteer.launch({headless: true});
         //linux设置
-        const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium', args:["--no-sandbox"] });
+        
         const page = await browser.newPage();
         await page.goto('https://twitter.com/elonmusk');
         await page.waitForSelector('article');
@@ -85,9 +96,10 @@ var search = [ // search keyword
         }else {
             console.log("无需发送")
         }
-        console.log("关闭浏览器")
-        await browser.close();
+       console.log("+++++++++++++关闭页面++++++++++++++++++++++++++++++")
+        await page.close();
     })
 
 
 })();
+
