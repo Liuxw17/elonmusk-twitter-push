@@ -42,13 +42,13 @@ var redis = require("redis");
         console.log('临时：'+reply)
         if (err) throw err;
         console.log('最新：'+content)               
-            if(content != reply.toString()){
+            if(content != reply.toString() && (content.toLowerCase().indexOf("doge")!=-1||content.toLowerCase().indexOf("dogecoin")!=-1)){
                 console.log('发送-----------'+content  )
                     const data = JSON.stringify({
                         //在https://wxpusher.zjiecode.com/申请
                         "appToken":"",
                         "content": content,
-                        "summary":"马斯克的推特更新！！！",
+                        "summary":"马斯克在推特中提到狗狗币了！！！",
                         "contentType":1,
                         "topicIds":[
                             2052
