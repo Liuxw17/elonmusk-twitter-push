@@ -34,8 +34,8 @@ var redis = require("redis");
         await page.goto('https://twitter.com/elonmusk/with_replies');
 
         
-        
-        await page.waitForSelector('article');
+        let seleter='#react-root > div > div > div.css-1dbjc4n.r-18u37iz.r-13qz1uu.r-417010 > main > div > div > div > div.css-1dbjc4n.r-14lw9ot.r-1gm7m50.r-1ljd8xs.r-13l2t4g.r-1phboty.r-1jgb5lz.r-11wrixw.r-61z16t.r-1ye8kvj.r-13qz1uu.r-184en5c > div > div:nth-child(2) > div > div > div:nth-child(3) > section > div > div > div:nth-child(1) > div > div > article > div > div > div > div.css-1dbjc4n.r-18u37iz > div.css-1dbjc4n.r-1iusvr4.r-16y2uox.r-1777fci.r-kzbkwu > div:nth-child(2) > div:nth-child(2) > div > span'
+        await page.waitForSelector(seleter);
 
         
         let tweetsArray = await page.$$('div[data-testid="tweet"]');
@@ -44,7 +44,7 @@ var redis = require("redis");
         let tweetElement0 = tweetsArray[0]
 
         //鼠标右击复制 selecter
-        let content0 = await tweetElement0.$$eval('#react-root > div > div > div.css-1dbjc4n.r-18u37iz.r-13qz1uu.r-417010 > main > div > div > div > div.css-1dbjc4n.r-14lw9ot.r-1gm7m50.r-1ljd8xs.r-13l2t4g.r-1phboty.r-1jgb5lz.r-11wrixw.r-61z16t.r-1ye8kvj.r-13qz1uu.r-184en5c > div > div:nth-child(2) > div > div > div:nth-child(3) > section > div > div > div:nth-child(1) > div > div > article > div > div > div > div.css-1dbjc4n.r-18u37iz > div.css-1dbjc4n.r-1iusvr4.r-16y2uox.r-1777fci.r-kzbkwu > div:nth-child(2) > div:nth-child(2) > div > span', element => element.map(data => data.innerText));
+        let content0 = await tweetElement0.$$eval(seleter, element => element.map(data => data.innerText));
 
         
         content=content0.toString()
