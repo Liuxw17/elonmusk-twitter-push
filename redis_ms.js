@@ -51,13 +51,13 @@ var redis = require("redis");
         content=content0.toString()
 
         
-        await client.get('orderRecord',function(err, reply){
+        await client.get('string orderRecord',function(err, reply){
             
         if (err) throw err;
         console.log('历史：'+reply)
         console.log('最新：'+content) 
 
-        if(content != reply.toString()
+        if(content != reply
             && (content.toLowerCase().indexOf("doge")!=-1
             ||content.toLowerCase().indexOf("dogecoin")!=-1
             ||content.toLowerCase().indexOf("bitcoin")!=-1
@@ -95,7 +95,7 @@ var redis = require("redis");
                      })
                      req.write(data)
                      req.end()  
-             client.set('orderRecord',content)        
+             client.set('string orderRecord',content)        
                     
             }else{
                 console.log("无需发送")
