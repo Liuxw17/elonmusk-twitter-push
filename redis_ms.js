@@ -31,7 +31,7 @@ var redis = require("redis");
         console.log("+++++++++++++刷新页面++++++++++++++++++++++++++++++")
         // const browser = await puppeteer.launch({headless: true});
         //linux设置
-        var client = redis.createClient(16379, '180.215.199.116', { auth_pass: '332647jw' });
+        var client = redis.createClient(16379, '0.0.0.0', { auth_pass: '00000' });
 
         await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
         const seleter='#react-root > div > div > div.css-1dbjc4n.r-18u37iz.r-13qz1uu.r-417010 > main > div > div > div > div.css-1dbjc4n.r-14lw9ot.r-1gm7m50.r-1ljd8xs.r-13l2t4g.r-1phboty.r-1jgb5lz.r-11wrixw.r-61z16t.r-1ye8kvj.r-13qz1uu.r-184en5c > div > div:nth-child(2) > div > div > div:nth-child(3) > section > div > div > div:nth-child(3) > div > div > article > div > div > div > div.css-1dbjc4n.r-18u37iz > div.css-1dbjc4n.r-1iusvr4.r-16y2uox.r-1777fci.r-kzbkwu > div:nth-child(2) > div:nth-child(2) > div'
@@ -61,7 +61,7 @@ var redis = require("redis");
                 console.log('发送-----------'+content  )
                     const data = JSON.stringify({
                         //在https://wxpusher.zjiecode.com/申请
-                        "appToken":"AT_qsO9pyhRJ5SKjxCS7oKMED6Le75LeDKY",
+                        "appToken":"AT_00000000000000000000",
                         "content": content+'<br/><a href="https://fanyi.youdao.com/">复制内容翻译</a>',
                         "summary":"马斯克的推特和推文回复！！！",
                         "contentType":2,
