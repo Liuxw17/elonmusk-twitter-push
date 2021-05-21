@@ -9,7 +9,7 @@ var redis = require("redis");
 
 (async () => {
 
-    const rule = '0/60 * * * * *';
+    const rule = '0/20 * * * * *';
      console.log("------------初始化浏览器-----------------------")
     const browser = await puppeteer.launch({ 
             executablePath: '/usr/bin/chromium', 
@@ -31,27 +31,23 @@ var redis = require("redis");
         console.log("+++++++++++++刷新页面++++++++++++++++++++++++++++++")
         // const browser = await puppeteer.launch({headless: true});
         //linux设置
-        var client = redis.createClient(16379, '0.0.0.0', { auth_pass: '0' });
+        var client = redis.createClient(16379, '180.215.199.116', { auth_pass: '332647jw' });
 
         await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
-        const seleter='#react-root > div > div > div.css-1dbjc4n.r-18u37iz.r-13qz1uu.r-417010 > main > div > div > div > div.css-1dbjc4n.r-14lw9ot.r-1gm7m50.r-1ljd8xs.r-13l2t4g.r-1phboty.r-1jgb5lz.r-11wrixw.r-61z16t.r-1ye8kvj.r-13qz1uu.r-184en5c > div > div:nth-child(2) > div > div > div:nth-child(3) > section > div > div > div:nth-child(1) > div > div > article > div > div > div > div.css-1dbjc4n.r-18u37iz > div.css-1dbjc4n.r-1iusvr4.r-16y2uox.r-1777fci.r-kzbkwu > div:nth-child(2) > div:nth-child(2) > div > span'
+        const seleter='#react-root > div > div > div.css-1dbjc4n.r-18u37iz.r-13qz1uu.r-417010 > main > div > div > div > div.css-1dbjc4n.r-14lw9ot.r-1gm7m50.r-1ljd8xs.r-13l2t4g.r-1phboty.r-1jgb5lz.r-11wrixw.r-61z16t.r-1ye8kvj.r-13qz1uu.r-184en5c > div > div:nth-child(2) > div > div > div:nth-child(3) > section > div > div > div:nth-child(3) > div > div > article > div > div > div > div.css-1dbjc4n.r-18u37iz > div.css-1dbjc4n.r-1iusvr4.r-16y2uox.r-1777fci.r-kzbkwu > div:nth-child(2) > div:nth-child(2) > div'
         
         await page.waitForSelector(seleter);
 
         
-        let tweetsArray = await page.$$('div[data-testid="tweet"]');
 
         
-        let tweetElement0 = tweetsArray[0]
-
-        
-        let content0 = await tweetElement0.$$eval(seleter, element => element.map(data => data.innerText));
+        let content0 = await page.$$eval(seleter, element => element.map(data => data.textContent));
 
         
         content=content0.toString()
 
         
-        await client.get('string orderRecord',function(err, reply){
+        await client.get('orderRecord',function(err, reply){
             
         if (err) throw err;
         console.log('历史：'+reply)
@@ -65,10 +61,10 @@ var redis = require("redis");
                 console.log('发送-----------'+content  )
                     const data = JSON.stringify({
                         //在https://wxpusher.zjiecode.com/申请
-                        "appToken":"000000",
-                        "content": content,
+                        "appToken":"AT_qsO9pyhRJ5SKjxCS7oKMED6Le75LeDKY",
+                        "content": content+'<br/><a href="https://fanyi.youdao.com/">复制内容翻译</a>',
                         "summary":"马斯克的推特和推文回复！！！",
-                        "contentType":1,
+                        "contentType":2,
                         "topicIds":[
                             2052
                         ],
